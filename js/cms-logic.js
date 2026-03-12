@@ -28,21 +28,52 @@ async function loadPotensiDesa() {
         const list = data.potensi || [];
         container.innerHTML = ''; 
         list.forEach(item => {
+            // Kita gunakan fungsi popup yang sama dengan berita agar konsisten
             container.innerHTML += `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
                     <img src="${item.image}" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
                         <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest bg-red-50 px-2 py-1 rounded w-fit">${item.category}</span>
                         <h3 class="text-xl font-bold mt-2 text-gray-800">${item.title}</h3>
-                        <p class="text-gray-600 mt-2 text-sm leading-relaxed overflow-hidden" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                             ${item.description}
                         </p>
+                        <div class="mt-auto pt-2">
+                            <button onclick="showDetailPotensi('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', '${item.category}')" 
+                                    class="text-red-700 font-bold text-xs uppercase tracking-tighter hover:underline">
+                                Lihat Detail Potensi ↓
+                            </button>
+                        </div>
                     </div>
                 </div>`;
         });
     } catch (e) { console.error("Potensi Error"); }
 }
 
+// Tambahkan fungsi pembantu untuk Modal Potensi (Letakkan di bawah fungsi showDetailBerita)
+function showDetailPotensi(title, image, description, category) {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm';
+    modal.innerHTML = `
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="relative">
+                <img src="${image}" class="w-full h-72 object-cover">
+                <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg uppercase">
+                    ${category}
+                </span>
+            </div>
+            <div class="p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">${title}</h2>
+                <div class="text-gray-600 leading-relaxed text-lg whitespace-pre-line">${description}</div>
+                <button onclick="this.parentElement.parentElement.parentElement.remove()" 
+                        class="mt-8 w-full md:w-auto bg-gray-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-black transition shadow-lg">
+                    Tutup Detail
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
 // 3. Fungsi Memuat Berita & Fungsi Detail Berita
 async function loadBeritaDesa() {
     const container = document.getElementById('berita-container');
