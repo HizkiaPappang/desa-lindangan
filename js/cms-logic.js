@@ -47,7 +47,46 @@ async function loadPotensiDesa() {
     } catch (e) { container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Tambahkan potensi desa melalui panel admin.</p>'; }
 }
 
+async function loadBeritaDesa() {
+    const container = document.getElementById('berita-container');
+    if (!container) return;
+
+    try {
+        // Ambil list file di folder data/berita melalui API GitHub
+        const response = await fetch('https://api.github.com/repos/HizkiaPappang/desa-lindangan/contents/data/berita');
+        const files = await response.json();
+
+        container.innerHTML = ''; 
+
+        // Ambil 3 berita terbaru saja
+        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse().slice(0, 3);
+
+        for (const file of newsFiles) {
+            const res = await fetch(file.download_url);
+            const item = await res.json();
+            
+            // Format tanggal sederhana
+            const date = new Date(item.date).toLocaleDateString('id-ID');
+
+            container.innerHTML += `
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-40 object-cover">
+                    <div class="p-5">
+                        <p class="text-red-600 text-[10px] font-bold mb-1">${date}</p>
+                        <h3 class="text-lg font-bold text-gray-800 leading-tight mb-2">${item.title}</h3>
+                        <p class="text-gray-500 text-xs line-clamp-3 mb-4">${item.body.substring(0, 100)}...</p>
+                        <a href="#" class="text-red-700 font-bold text-xs hover:underline italic">Baca Selengkapnya →</a>
+                    </div>
+                </div>`;
+        }
+    } catch (e) {
+        container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Belum ada berita terbaru.</p>';
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     loadAparatData();
     loadPotensiDesa();
+    loadBeritaDesa();
 });

@@ -43,3 +43,15 @@ collections:
               - { label: "Kategori", name: "category", widget: "select", options: ["Pertanian", "Perkebunan", "Wisata"] }
               - { label: "Foto", name: "image", widget: "image" }
               - { label: "Deskripsi", name: "description", widget: "text" }
+
+
+  - name: "berita"
+    label: "Berita Desa"
+    folder: "data/berita"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Judul Berita", name: "title", widget: "string" }
+      - { label: "Tanggal Publish", name: "date", widget: "datetime" }
+      - { label: "Foto Berita", name: "image", widget: "image" }
+      - { label: "Isi Berita", name: "body", widget: "markdown" }
