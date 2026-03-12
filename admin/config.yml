@@ -28,13 +28,18 @@ collections:
           - { label: "Kepala Jaga 2", name: "jaga_2", widget: "string" }
           - { label: "Kepala Jaga 3", name: "jaga_3", widget: "string" }
 
-  - name: "potensi"
-    label: "Potensi Desa"
-    folder: "data/potensi"
-    create: true
-    slug: "{{title}}"
-    fields:
-      - { label: "Nama Potensi", name: "title", widget: "string" }
-      - { label: "Kategori", name: "category", widget: "select", options: ["Pertanian", "Perkebunan", "Wisata", "Lainnya"] }
-      - { label: "Foto Unggulan", name: "image", widget: "image" }
-      - { label: "Deskripsi Singkat", name: "description", widget: "text" }
+  - name: "potensi_list"
+    label: "Daftar Potensi Desa"
+    files:
+      - name: "potensi_data"
+        label: "Isi Potensi Desa"
+        file: "data/potensi.json"
+        fields:
+          - label: "Potensi"
+            name: "potensi"
+            widget: "list"
+            fields:
+              - { label: "Nama Potensi", name: "title", widget: "string" }
+              - { label: "Kategori", name: "category", widget: "select", options: ["Pertanian", "Perkebunan", "Wisata"] }
+              - { label: "Foto", name: "image", widget: "image" }
+              - { label: "Deskripsi", name: "description", widget: "text" }
