@@ -52,35 +52,51 @@ async function loadBeritaDesa() {
     if (!container) return;
 
     try {
-        // Ambil list file di folder data/berita melalui API GitHub
+        // PERHATIKAN: Ganti 'HizkiaPappang' dengan username GitHub Anda jika berbeda
         const response = await fetch('https://api.github.com/repos/HizkiaPappang/desa-lindangan/contents/data/berita');
+        
+        if (!response.ok) {
+            throw new Error("Folder berita belum ada atau kosong");
+        }
+
         const files = await response.json();
+        
+        // Filter file .json dan ambil yang terbaru (berdasarkan nama file/tanggal)
+        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse().slice(0, 3);
+        
+        if (newsFiles.length === 0) {
+            container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Belum ada berita yang dipublikasikan.</p>';
+            return;
+        }
 
         container.innerHTML = ''; 
 
-        // Ambil 3 berita terbaru saja
-        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse().slice(0, 3);
-
         for (const file of newsFiles) {
-            const res = await fetch(file.download_url);
+            // Gunakan cache-buster agar data selalu baru
+            const res = await fetch(file.download_url + '?t=' + new Date().getTime());
             const item = await res.json();
             
-            // Format tanggal sederhana
-            const date = new Date(item.date).toLocaleDateString('id-ID');
+            // Format tanggal (misal: 12/03/2026)
+            const dateStr = item.date ? new Date(item.date).toLocaleDateString('id-ID') : 'Baru saja';
 
             container.innerHTML += `
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100">
-                    <img src="${item.image}" alt="${item.title}" class="w-full h-40 object-cover">
-                    <div class="p-5">
-                        <p class="text-red-600 text-[10px] font-bold mb-1">${date}</p>
-                        <h3 class="text-lg font-bold text-gray-800 leading-tight mb-2">${item.title}</h3>
-                        <p class="text-gray-500 text-xs line-clamp-3 mb-4">${item.body.substring(0, 100)}...</p>
-                        <a href="#" class="text-red-700 font-bold text-xs hover:underline italic">Baca Selengkapnya →</a>
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-shadow">
+                    <img src="${item.image || 'assets/img/hero-desa.jpg'}" class="w-full h-40 object-cover" onerror="this.src='assets/img/hero-desa.jpg'">
+                    <div class="p-5 flex flex-col flex-grow">
+                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-wider">${dateStr}</p>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
+                        <p class="text-gray-500 text-xs overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                            ${item.body ? item.body.replace(/[#*]/g, '') : ''}
+                        </p>
+                        <div class="mt-auto">
+                            <span class="text-red-700 font-bold text-xs italic cursor-pointer hover:underline">Baca Selengkapnya →</span>
+                        </div>
                     </div>
                 </div>`;
         }
     } catch (e) {
-        container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Belum ada berita terbaru.</p>';
+        console.error("Error Berita:", e);
+        container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Berita sedang disiapkan...</p>';
     }
 }
 
