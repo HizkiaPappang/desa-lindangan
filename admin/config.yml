@@ -1,0 +1,40 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+collections:
+  - name: "pemerintahan"
+    label: "Data Aparat Desa"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "aparat"
+        label: "Daftar Nama Aparat"
+        file: "data/pemerintahan.json"
+        fields:
+          - { label: "Hukum Tua", name: "hukum_tua", widget: "string" }
+          - { label: "Sekretaris Desa", name: "sekdes", widget: "string" }
+          - { label: "Kasie Pemerintahan", name: "kasie_pemerintahan", widget: "string" }
+          - { label: "Kasie Kesejahteraan", name: "kasie_kesejahteraan", widget: "string" }
+          - { label: "Kasie Pelayanan", name: "kasie_pelayanan", widget: "string" }
+          - { label: "Kaur TU / Umum", name: "kaur_umum", widget: "string" }
+          - { label: "Kaur Perencanaan", name: "kaur_perencanaan", widget: "string" }
+          - { label: "Kaur Keuangan", name: "kaur_keuangan", widget: "string" }
+          - { label: "Kepala Jaga 1", name: "jaga_1", widget: "string" }
+          - { label: "Kepala Jaga 2", name: "jaga_2", widget: "string" }
+          - { label: "Kepala Jaga 3", name: "jaga_3", widget: "string" }
+
+  - name: "potensi"
+    label: "Potensi Desa"
+    folder: "data/potensi"
+    create: true
+    slug: "{{title}}"
+    fields:
+      - { label: "Nama Potensi", name: "title", widget: "string" }
+      - { label: "Kategori", name: "category", widget: "select", options: ["Pertanian", "Perkebunan", "Wisata", "Lainnya"] }
+      - { label: "Foto Unggulan", name: "image", widget: "image" }
+      - { label: "Deskripsi Singkat", name: "description", widget: "text" }
