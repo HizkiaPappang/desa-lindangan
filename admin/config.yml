@@ -48,10 +48,12 @@ collections:
   - name: "berita"
     label: "Berita Desa"
     folder: "data/berita"
+    extension: "json" 
+    format: "json"    
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Judul Berita", name: "title", widget: "string" }
-      - { label: "Tanggal Publish", name: "date", widget: "datetime" }
-      - { label: "Foto Berita", name: "image", widget: "image" }
+      - { label: "Tanggal", name: "date", widget: "datetime" }
+      - { label: "Foto", name: "image", widget: "image" }
       - { label: "Isi Berita", name: "body", widget: "markdown" }
