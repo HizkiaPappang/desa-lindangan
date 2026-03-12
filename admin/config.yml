@@ -27,6 +27,9 @@ collections:
           - { label: "Kepala Jaga 1", name: "jaga_1", widget: "string" }
           - { label: "Kepala Jaga 2", name: "jaga_2", widget: "string" }
           - { label: "Kepala Jaga 3", name: "jaga_3", widget: "string" }
+          - { label: "Sejarah Desa", name: "sejarah", widget: "markdown" }
+          - { label: "Jumlah Penduduk (Jiwa)", name: "total_penduduk", widget: "string" }
+          - { label: "Jumlah Kepala Keluarga", name: "total_kk", widget: "string" }
 
   - name: "potensi_list"
     label: "Daftar Potensi Desa"

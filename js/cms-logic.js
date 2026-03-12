@@ -132,6 +132,35 @@ function showDetailBerita(title, image, body) {
     document.body.appendChild(modal);
 }
 
+async function loadAparatData() {
+    try {
+        const response = await fetch('data/pemerintahan.json?t=' + new Date().getTime());
+        if(!response.ok) return;
+        const data = await response.json();
+        
+        const mapping = {
+            'nama-hukum-tua': data.hukum_tua, 'nama-sekdes': data.sekdes,
+            'nama-kasie-pem': data.kasie_pemerintahan, 'nama-kasie-kesra': data.kasie_kesejahteraan,
+            'nama-kasie-pelayanan': data.kasie_pelayanan, 'nama-kaur-umum': data.kaur_umum,
+            'nama-kaur-rencana': data.kaur_perencanaan, 'nama-kaur-keu': data.kaur_keuangan,
+            'nama-jaga-1': data.jaga_1, 'nama-jaga-2': data.jaga_2, 'nama-jaga-3': data.jaga_3,
+            // Mapping baru untuk sejarah dan statistik
+            'stat-penduduk': data.total_penduduk,
+            'stat-kk': data.total_kk
+        };
+
+        for (const [id, value] of Object.entries(mapping)) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = value || '0';
+        }
+
+        // Khusus Sejarah menggunakan innerHTML karena formatnya Markdown/HTML
+        const sejarahEl = document.getElementById('konten-sejarah');
+        if (sejarahEl) sejarahEl.innerHTML = data.sejarah ? data.sejarah.replace(/\n/g, '<br>') : 'Sejarah belum diisi.';
+
+    } catch (e) { console.error("Gagal muat data profil desa"); }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadAparatData();
     loadPotensiDesa();
