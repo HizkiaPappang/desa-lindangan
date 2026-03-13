@@ -43,7 +43,7 @@ collections:
             widget: "list"
             fields:
               - { label: "Nama Potensi", name: "title", widget: "string" }
-              - { label: "Kategori", name: "category", widget: "select", options: ["Pertanian", "Perkebunan", "Wisata"] }
+              - { label: "Kategori", name: "category", widget: "select", options: ["Pertanian", "Perkebunan", "Wisata", "Hasil Bumi"] }
               - { label: "Foto", name: "image", widget: "image" }
               - { label: "Deskripsi", name: "description", widget: "text" }
 
