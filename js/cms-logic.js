@@ -58,17 +58,17 @@ async function loadAparatData() {
 
 // 2. FUNGSI MEMUAT POTENSI DESA
 async function loadPotensiDesa() {
-  const container = document.getElementById("potensi-container");
-  if (!container) return;
-  try {
-    const response = await fetch("data/potensi.json?t=" + new Date().getTime());
-    const data = await response.json();
-    const list = data.potensi || [];
-
-    container.innerHTML = "";
-    list.forEach((item) => {
-      container.innerHTML += `
-                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-lg transition-all">
+    const container = document.getElementById('potensi-container');
+    if (!container) return;
+    try {
+        const response = await fetch('data/potensi.json?t=' + new Date().getTime());
+        const data = await response.json();
+        const list = data.potensi || [];
+        
+        container.innerHTML = ''; 
+        list.forEach(item => {
+            container.innerHTML += `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
                     <img src="${item.image}" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
                         <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest bg-red-50 px-2 py-1 rounded w-fit">${item.category}</span>
@@ -76,18 +76,16 @@ async function loadPotensiDesa() {
                         <p class="text-gray-600 mt-2 text-sm leading-relaxed overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                             ${item.description}
                         </p>
-                        <div class="mt-auto pt-2 border-t border-gray-50">
-                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, "<br>").replace(/'/g, "\\'")}', 'potensi', '${item.category}')" 
+                        <div class="mt-auto pt-2">
+                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', 'potensi', '${item.category}')" 
                                     class="text-red-700 font-bold text-xs uppercase tracking-tighter hover:underline">
                                 Lihat Detail Potensi ↓
                             </button>
                         </div>
                     </div>
                 </div>`;
-    });
-  } catch (e) {
-    console.error("Potensi Error:", e);
-  }
+        });
+    } catch (e) { console.error("Potensi Error"); }
 }
 
 // 3. FUNGSI MEMUAT BERITA DESA
