@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desa Lindangan</title>
+    <link rel="icon" type="image/jpg" href="assets/img/logo-minsel.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
@@ -97,31 +98,48 @@
 
     <main>
       <section id="profil" class="py-20 bg-white">
-        <div class="container mx-auto px-4 text-center">
-          <h2 class="text-4xl font-bold mb-4 text-gray-800 uppercase">
-            Profil Desa
-          </h2>
-          <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto text-left">
-            <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100">
-              <h3 class="text-2xl font-bold text-red-700 mb-4 uppercase">
-                Visi
-              </h3>
-              <p class="italic text-gray-700">
-                "MELAYANI MASYARAKAT KHUSUSNYA Desa Lindangan DENGAN SEBAIK-BAIKNYA"
-              </p>
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 uppercase">Sejarah Desa</h2>
+                <div id="konten-sejarah" class="text-gray-600 leading-relaxed overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">
+                    Memuat sejarah...
+                </div>
+                <button id="btn-sejarah-lengkap" class="text-red-700 font-bold text-sm hover:underline italic">
+                    Baca Sejarah Lengkap →
+                </button>
             </div>
-            <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100">
-              <h3 class="text-2xl font-bold text-red-700 mb-4 uppercase">
-                Misi
-              </h3>
-              <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm">
-                <li>MEMAJUKAN DESA DALAM MISI PEMBANGUNAN</li>
-                <li>MEMAKMURKAN MASYARAKAT Desa Lindangan</li>
-              </ul>
+
+            <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-sm">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                    <span class="w-8 h-8 bg-red-600 text-white rounded-lg flex items-center justify-center mr-3 text-sm">📍</span>
+                    Letak Geografis & Batas
+                </h3>
+                <p class="text-sm text-gray-600 mb-6 leading-relaxed">
+                    Terletak di dataran tinggi (368 mdpl) dan dilewati aliran Sungai Ranoyapo.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <span class="font-bold text-xs text-red-600 w-20 pt-1">UTARA</span>
+                        <p class="text-sm text-gray-700 flex-1">Desa Ranoyapo, Kec. Ranoyapo</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="font-bold text-xs text-red-600 w-20 pt-1">SELATAN</span>
+                        <p class="text-sm text-gray-700 flex-1">Desa Torout, Kec. Tompaso Baru</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="font-bold text-xs text-red-600 w-20 pt-1">TIMUR</span>
+                        <p class="text-sm text-gray-700 flex-1">Sungai Ranoyapo, Kec. Tompaso Baru</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="font-bold text-xs text-red-600 w-20 pt-1">BARAT</span>
+                        <p class="text-sm text-gray-700 flex-1">Hutan Lindung, Kec. Tompaso Baru</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </section>
+    </div>
+</section>
       <section id="sejarah" class="py-20 bg-white">
         <div class="container mx-auto px-4">
           <div class="grid md:grid-cols-2 gap-12 items-center">
