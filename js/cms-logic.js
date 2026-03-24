@@ -141,27 +141,35 @@ async function loadBeritaDesa() {
     const container = document.getElementById('berita-container');
     if (!container) return;
     try {
-        const response = await fetch('https://api.github.com/repos/HizkiaPappang/desa-lindangan/contents/data/berita');
-        if (!response.ok) return;
+        // Ganti URL dengan repo asli Anda
+        const repoUrl = 'https://api.github.com/repos/HizkiaPappang/desa-lindangan/contents/data/berita';
+        const response = await fetch(repoUrl);
+        
+        if (!response.ok) {
+            console.error("Gagal akses folder berita di GitHub");
+            return;
+        }
+
         const files = await response.json();
-        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse(); // Ambil semua berita
+        // Ambil file JSON saja, urutkan dari yang terbaru, ambil 6 saja
+        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse().slice(0, 6);
         
         container.innerHTML = ''; 
-        newsFiles.slice(0, 6).forEach(async (file) => { // Tampilkan 6 terbaru di depan
+        for (const file of newsFiles) {
             const res = await fetch(file.download_url);
             const item = await res.json();
-            const date = new Date(item.date).toLocaleDateString('id-ID');
+            const date = new Date(item.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
             container.innerHTML += `
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
                     <img src="${item.image}" class="w-full h-40 object-cover">
                     <div class="p-5 flex flex-col flex-grow">
-                        <p class="text-red-600 text-[10px] font-bold mb-1">${date}</p>
+                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${date}</p>
                         <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
                         <p class="text-gray-500 text-xs overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                             ${item.body.replace(/[#*]/g, '')}
                         </p>
-                        <div class="mt-auto pt-4">
+                        <div class="mt-auto pt-4 border-t border-gray-50">
                             <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.body.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', 'berita')" 
                                     class="text-red-700 font-bold text-xs italic hover:underline">
                                 Baca Selengkapnya →
@@ -169,8 +177,10 @@ async function loadBeritaDesa() {
                         </div>
                     </div>
                 </div>`;
-        });
-    } catch (e) { console.error("Berita Error:", e); }
+        }
+    } catch (e) {
+        console.error("Error Berita:", e);
+    }
 }
 
 // 4. FUNGSI MODAL UNIVERSAL
