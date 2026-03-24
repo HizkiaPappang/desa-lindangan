@@ -86,15 +86,18 @@ collections:
       - { label: "Isi Berita", name: "body", widget: "markdown" }
 
   # KOLEKSI POTENSI DESA
-  - name: "potensi"
+  - name: "potensi_list"
     label: "Potensi Desa"
-    file: "data/potensi.json"
-    fields:
-      - label: "Daftar Potensi"
-        name: "potensi"
-        widget: "list"
+    files:
+      - name: "potensi_data"
+        label: "Daftar Potensi"
+        file: "data/potensi.json"
         fields:
-          - { label: "Nama Potensi", name: "title", widget: "string" }
-          - { label: "Kategori", name: "category", widget: "string" }
-          - { label: "Gambar", name: "image", widget: "image" }
-          - { label: "Deskripsi", name: "description", widget: "text" }
+          - label: "Daftar Potensi"
+            name: "potensi"
+            widget: "list"
+            fields:
+              - { label: "Nama Potensi", name: "title", widget: "string" }
+              - { label: "Kategori", name: "category", widget: "string" }
+              - { label: "Gambar", name: "image", widget: "image" }
+              - { label: "Deskripsi", name: "description", widget: "text" }
