@@ -87,6 +87,7 @@ collections:
   - name: "berita"
     label: "Berita Desa"
     folder: "data/berita"
+    extension: "json"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
