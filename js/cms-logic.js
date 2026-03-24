@@ -156,89 +156,36 @@ async function loadPotensiDesa() {
 }
 
 // 3. FUNGSI MEMUAT BERITA DESA
-async function loadBeritaDesa() {
-  const container = document.getElementById("berita-container");
-  if (!container) return;
+// Di dalam loadBeritaDesa, cari bagian loop innerHTML:
+files.forEach(async (file) => {
+    const res = await fetch(file.download_url);
+    const item = await res.json();
+    const date = new Date(item.date).toLocaleDateString('id-ID');
 
-  // Tampilkan loading saat proses ambil data
-  container.innerHTML =
-    '<p class="text-center col-span-full text-gray-400 italic">Sedang memuat berita terbaru...</p>';
+    // --- TAMBAHKAN LOGIKA PEMOTONG TEKS DI SINI ---
+    // Kita ambil hanya 150 karakter pertama saja untuk kartu depan
+    const ringkasanBerita = item.body ? item.body.substring(0, 150).replace(/[#*]/g, '') + '...' : '';
 
-  try {
-    // PERHATIKAN: Ganti 'HizkiaPappang' dan 'desa-lindangan' jika username/repo berbeda!
-    const repoPath = "HizkiaPappang/desa-lindangan";
-    const url = `https://api.github.com/repos/${repoPath}/contents/data/berita`;
-
-    console.log("Mencoba mengambil berita dari:", url);
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        container.innerHTML =
-          '<p class="text-center col-span-full text-gray-400">Folder berita belum ada di GitHub. Silakan buat berita pertama di Admin.</p>';
-      } else if (response.status === 403) {
-        container.innerHTML =
-          '<p class="text-center col-span-full text-red-500">Batas akses GitHub API tercapai (Rate Limit). Coba lagi nanti atau gunakan VPN/Hotspot lain.</p>';
-      }
-      return;
-    }
-
-    const files = await response.json();
-
-    // Filter hanya file .json dan balik urutan (terbaru di atas)
-    const newsFiles = files.filter((f) => f.name.endsWith(".json")).reverse();
-
-    if (newsFiles.length === 0) {
-      container.innerHTML =
-        '<p class="text-center col-span-full text-gray-400">Belum ada berita yang dipublikasikan.</p>';
-      return;
-    }
-
-    container.innerHTML = ""; // Bersihkan teks loading
-
-    // Ambil 6 berita terbaru
-    for (const file of newsFiles.slice(0, 6)) {
-      const res = await fetch(file.download_url);
-      const item = await res.json();
-
-      // Format tanggal Indonesia
-      const dateStr = item.date
-        ? new Date(item.date).toLocaleDateString("id-ID", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })
-        : "Tanggal tidak tersedia";
-      const bodyPreview = item.body ? item.body.replace(/[#*]/g, "") : "";
-
-      // Cari bagian ini di dalam loadBeritaDesa:
-      container.innerHTML += `
-    <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
-        <img src="${item.image}" class="w-full h-40 object-cover">
-        <div class="p-5 flex flex-col flex-grow">
-            <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${date}</p>
-            <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
-            
-            <p class="text-gray-500 text-xs overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
-                ${item.body.replace(/[#*]/g, "")}
-            </p>
-            
-            <div class="mt-auto pt-4 border-t border-gray-50">
-                <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.body.replace(/\n/g, "<br>").replace(/'/g, "\\'")}', 'berita')" 
-                        class="text-red-700 font-bold text-xs italic hover:underline">
-                    Baca Selengkapnya →
-                </button>
+    container.innerHTML += `
+        <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
+            <img src="${item.image}" class="w-full h-48 object-cover">
+            <div class="p-5 flex flex-col flex-grow">
+                <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${date}</p>
+                <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
+                
+                <p class="text-gray-500 text-xs mb-4 leading-relaxed">
+                    ${ringkasanBerita}
+                </p>
+                
+                <div class="mt-auto pt-4 border-t border-gray-50">
+                    <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.body.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', 'berita')" 
+                            class="text-red-700 font-bold text-xs italic hover:underline">
+                        Baca Selengkapnya →
+                    </button>
+                </div>
             </div>
-        </div>
-    </div>`;
-    }
-  } catch (e) {
-    console.error("Error Berita:", e);
-    container.innerHTML =
-      '<p class="text-center col-span-full text-red-500 italic text-sm">Gagal memuat berita. Periksa koneksi internet atau konfigurasi GitHub.</p>';
-  }
-}
+        </div>`;
+});
 
 // 4. FUNGSI MODAL UNIVERSAL
 function showModal(title, image, content, type, category = "") {
