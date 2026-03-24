@@ -6,10 +6,10 @@ media_folder: "assets/img"
 public_folder: "/assets/img"
 
 collections:
-  # KOLEKSI DATA PEMERINTAHAN & STATISTIK
+  # 1. KOLEKSI PROFIL, APARAT & STATISTIK (File-based)
   - name: "pemerintahan"
     label: "Profil & Statistik Desa"
-    delete: false # Mencegah file utama terhapus secara tidak sengaja
+    delete: false
     editor:
       preview: false
     files:
@@ -19,60 +19,71 @@ collections:
         fields:
           - { label: "Judul Halaman", name: "title", widget: "hidden", default: "Data Pemerintahan" }
           
-          # BAGIAN PROFIL & VISI MISI
+          # BAGIAN NAMA APARAT (DINAMIS - MENGGANTIKAN HARDCODE)
+          - label: "Struktur Pemerintah Desa"
+            name: "aparat"
+            widget: "object"
+            fields:
+              - { label: "Nama Hukum Tua", name: "hukum_tua", widget: "string" }
+              - { label: "Nama Sekdes", name: "sekdes", widget: "string" }
+              - { label: "Nama Kasie Pemerintahan", name: "kasie_pem", widget: "string" }
+              - { label: "Nama Kasie Kesra", name: "kasie_kesra", widget: "string" }
+              - { label: "Nama Kasie Pelayanan", name: "kasie_pelayanan", widget: "string" }
+              - { label: "Nama Kaur Umum", name: "kaur_umum", widget: "string" }
+              - { label: "Nama Kaur Perencanaan", name: "kaur_rencana", widget: "string" }
+              - { label: "Nama Kaur Keuangan", name: "kaur_keu", widget: "string" }
+              - { label: "Nama Jaga 1", name: "jaga_1", widget: "string" }
+              - { label: "Nama Jaga 2", name: "jaga_2", widget: "string" }
+              - { label: "Nama Jaga 3", name: "jaga_3", widget: "string" }
+
+          # BAGIAN JELAJAH DESA (PROFIL, VISI, MISI)
           - label: "Profil & Sejarah"
             name: "profil_section"
             widget: "object"
             fields:
-              - { label: "Sejarah Desa", name: "sejarah", widget: "markdown", hint: "Tuliskan sejarah lengkap desa di sini" }
+              - { label: "Sejarah Desa", name: "sejarah", widget: "markdown" }
               - { label: "Visi Desa", name: "visi", widget: "string" }
-              - { label: "Misi Desa", name: "misi", widget: "markdown", hint: "Gunakan list untuk poin-poin misi" }
+              - { label: "Misi Desa", name: "misi", widget: "markdown" }
           
           # BAGIAN STATISTIK UTAMA
-          - label: "Statistik Utama (Card)"
+          - label: "Statistik Penduduk (Utama)"
             name: "stats_utama"
             widget: "object"
             fields:
-              - { label: "Jumlah Kepala Keluarga (KK)", name: "kk", widget: "string" }
+              - { label: "Total Kepala Keluarga (KK)", name: "kk", widget: "string" }
               - { label: "Total Penduduk", name: "penduduk", widget: "string" }
               - { label: "Jumlah Laki-laki", name: "lk", widget: "string" }
               - { label: "Jumlah Perempuan", name: "pr", widget: "string" }
 
-          # DATA LIST DINAMIS (Bisa Tambah Baris Sendiri)
-          - label: "Data Pekerjaan"
+          # DATA LIST (STATISTIK DETAIL)
+          - label: "Statistik: Pekerjaan"
             name: "pekerjaan"
             widget: "list"
+            allow_add: true
             summary: "{{fields.nama}}: {{fields.jumlah}}"
             fields:
-              - { label: "Nama Pekerjaan", name: "nama", widget: "string" }
-              - { label: "Jumlah Orang", name: "jumlah", widget: "string" }
+              - { label: "Jenis Pekerjaan", name: "nama", widget: "string" }
+              - { label: "Jumlah", name: "jumlah", widget: "string" }
 
-          - label: "Data Agama"
+          - label: "Statistik: Agama"
             name: "agama"
             widget: "list"
+            allow_add: true
             summary: "{{fields.nama}}: {{fields.jumlah}}"
             fields:
               - { label: "Agama", name: "nama", widget: "string" }
-              - { label: "Jumlah Penganut", name: "jumlah", widget: "string" }
+              - { label: "Jumlah", name: "jumlah", widget: "string" }
 
-          - label: "Data Pendidikan"
+          - label: "Statistik: Pendidikan"
             name: "pendidikan"
             widget: "list"
+            allow_add: true
             summary: "{{fields.nama}}: {{fields.jumlah}}"
             fields:
               - { label: "Tingkat Pendidikan", name: "nama", widget: "string" }
               - { label: "Jumlah", name: "jumlah", widget: "string" }
 
-          # DATA APARAT DESA (Tetap dipertahankan jika ada)
-          - label: "Struktur Aparat Desa"
-            name: "aparat"
-            widget: "list"
-            fields:
-              - { label: "Nama Lengkap", name: "name", widget: "string" }
-              - { label: "Jabatan", name: "role", widget: "string" }
-              - { label: "Foto", name: "image", widget: "image" }
-
-  # KOLEKSI BERITA
+  # 2. KOLEKSI BERITA (Folder-based)
   - name: "berita"
     label: "Berita Desa"
     folder: "data/berita"
@@ -85,12 +96,12 @@ collections:
       - { label: "Foto Sampul", name: "image", widget: "image" }
       - { label: "Isi Berita", name: "body", widget: "markdown" }
 
-  # KOLEKSI POTENSI DESA
+  # 3. KOLEKSI POTENSI DESA (File-based - FIXED)
   - name: "potensi_list"
     label: "Potensi Desa"
     files:
       - name: "potensi_data"
-        label: "Daftar Potensi"
+        label: "Daftar Potensi Desa"
         file: "data/potensi.json"
         fields:
           - label: "Daftar Potensi"
