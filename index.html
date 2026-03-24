@@ -97,32 +97,8 @@
     <main>
       <section id="jelajah" class="py-20 bg-white">
         <div class="container mx-auto px-4 text-center">
-          <h2 class="text-4xl font-bold mb-4">Jelajahi Desa</h2>
-          <p class="text-gray-500 mb-12">
-            Pelajari lebih lanjut tentang desa kami melalui profil, sejarah,
-            serta visi dan misi.
-          </p>
-
-          <div class="grid md:grid-cols-3 gap-8">
-            <div
-              class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col items-center"
-            >
-              <div
-                class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 text-red-500 text-2xl"
-              >
-                📍
-              </div>
-              <h3 class="text-xl font-bold mb-4">Profil Desa</h3>
-              <p class="text-gray-500 text-sm mb-6">
-                Klik untuk melihat letak geografis dan batas wilayah desa.
-              </p>
-              <button
-                onclick="showModalProfil()"
-                class="mt-auto text-red-600 font-bold hover:underline"
-              >
-                Baca Selengkapnya
-              </button>
-            </div>
+          <h2 class="text-4xl font-bold mb-4 uppercase">Informasi Desa</h2>
+          <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div
               class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col items-center"
             >
@@ -133,7 +109,7 @@
               </div>
               <h3 class="text-xl font-bold mb-4">Sejarah Desa</h3>
               <p class="text-gray-500 text-sm mb-6">
-                Klik untuk membaca lebih lanjut tentang sejarah asal-usul desa.
+                Pelajari asal-usul dan sejarah berdirinya Desa Lindangan.
               </p>
               <button
                 id="btn-sejarah-lengkap"
@@ -143,7 +119,7 @@
               </button>
             </div>
             <div
-              class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col items-center"
+              class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-100 flex flex-col items-center"
             >
               <div
                 class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 text-red-500 text-2xl"
@@ -152,7 +128,7 @@
               </div>
               <h3 class="text-xl font-bold mb-4">Visi & Misi</h3>
               <p class="text-gray-500 text-sm mb-6">
-                Klik untuk melihat visi dan misi pembangunan desa kami.
+                Visi dan Misi pembangunan Desa Lindangan ke depan.
               </p>
               <button
                 onclick="showModalVisiMisi()"
@@ -212,65 +188,98 @@
           </div>
         </div>
       </section>
-
-      <section class="py-20 bg-red-600 text-white">
-        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12">
-          <div>
-            <h2 class="text-3xl font-bold mb-6 uppercase">Visi Desa</h2>
-            <p class="text-xl italic leading-relaxed">
-              "MEWUJUDKAN DESA LINDANGAN YANG HARMONIS, MANDIRI, RELIGIUS,
-              BERMATABAT, KREATIF, MOTIFATIF, INOVATIF, DAN BERDAYA SAING"
-            </p>
-          </div>
-          <div>
-            <h2 class="text-3xl font-bold mb-6 uppercase">Misi Desa</h2>
-            <ul
-              class="space-y-3 list-disc list-inside text-lg opacity-90 font-light"
-            >
-              <li>Meningkatkan sarana dan prasarana pertanian</li>
-              <li>Pengembangan agribisnis berbasis kelompok</li>
-              <li>Meningkatkan sumber daya manusia</li>
-              <li>Pembangunan ekonomi Masyarakat</li>
-              <li>Meningkatkan Pelayanan Masyarakat</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="py-20 bg-white">
+      <section id="pemerintahan" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
-          <div
-            class="bg-gray-900 rounded-[2rem] p-10 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8"
-          >
-            <h3 class="text-3xl font-bold uppercase tracking-wider">
-              Statistik Desa
-            </h3>
-            <div class="grid grid-cols-2 gap-12 text-center">
-              <div>
-                <p class="text-red-500 text-xs font-bold uppercase mb-2">
-                  Total Penduduk
+          <h2 class="text-4xl font-bold text-center mb-16 uppercase">
+            Pemerintah & Wilayah Desa
+          </h2>
+
+          <div class="grid lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2 space-y-8">
+              <div
+                class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-red-600 text-center mx-auto max-w-sm"
+              >
+                <h4
+                  class="text-gray-400 uppercase text-[10px] font-bold tracking-widest"
+                >
+                  Hukum Tua
+                </h4>
+                <p
+                  id="nama-hukum-tua"
+                  class="text-2xl font-bold text-gray-900 mt-2 italic"
+                >
+                  Memuat...
                 </p>
-                <p id="stat-penduduk" class="text-5xl font-bold">0</p>
-                <p class="text-[10px] mt-1 opacity-50 italic uppercase">Jiwa</p>
               </div>
-              <div>
-                <p class="text-red-500 text-xs font-bold uppercase mb-2">
-                  Kepala Keluarga
-                </p>
-                <p id="stat-kk" class="text-5xl font-bold">0</p>
-                <p class="text-[10px] mt-1 opacity-50 italic uppercase">KK</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div
+                  class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center"
+                >
+                  <h4 class="text-red-600 text-[10px] font-bold uppercase">
+                    Sekretaris Desa
+                  </h4>
+                  <p id="nama-sekdes" class="font-bold text-gray-800">-</p>
+                </div>
+                <div
+                  class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center"
+                >
+                  <h4 class="text-red-600 text-[10px] font-bold uppercase">
+                    Kaur Keuangan
+                  </h4>
+                  <p id="nama-kaur-keu" class="font-bold text-gray-800">-</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div
+                class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100"
+              >
+                <h3 class="font-bold mb-4 flex items-center">
+                  <span class="mr-2">🗺️</span> Peta Wilayah
+                </h3>
+                <img
+                  src="assets/img/PETA.png"
+                  alt="Peta Desa Lindangan"
+                  class="w-full h-auto rounded-xl shadow-md mb-4 border border-gray-200"
+                />
+
+                <h3 class="font-bold mb-4 flex items-center mt-6">
+                  <span class="mr-2">📍</span> Batas Desa
+                </h3>
+                <div class="space-y-2 text-sm">
+                  <div class="flex justify-between border-b pb-1">
+                    <span class="text-red-600 font-bold uppercase text-[10px]"
+                      >Utara</span
+                    >
+                    <span class="font-medium text-gray-700">Desa Ranoyapo</span>
+                  </div>
+                  <div class="flex justify-between border-b pb-1">
+                    <span class="text-red-600 font-bold uppercase text-[10px]"
+                      >Selatan</span
+                    >
+                    <span class="font-medium text-gray-700">Desa Torout</span>
+                  </div>
+                  <div class="flex justify-between border-b pb-1">
+                    <span class="text-red-600 font-bold uppercase text-[10px]"
+                      >Timur</span
+                    >
+                    <span class="font-medium text-gray-700"
+                      >Sungai Ranoyapo</span
+                    >
+                  </div>
+                  <div class="flex justify-between border-b pb-1">
+                    <span class="text-red-600 font-bold uppercase text-[10px]"
+                      >Barat</span
+                    >
+                    <span class="font-medium text-gray-700">Hutan Lindung</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <section id="pemerintahan" class="py-20 bg-gray-50 text-center">
-        <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-red-600 w-full max-w-sm">
-    <h4 class="text-gray-400 uppercase text-[10px] font-bold tracking-widest">Hukum Tua</h4>
-    <p id="nama-hukum-tua" class="text-2xl font-bold text-gray-900 mt-2 italic">Memuat...</p> 
-</div>
-          
 
       <section id="potensi" class="py-20 bg-white">
         <div class="container mx-auto px-4 text-center">
