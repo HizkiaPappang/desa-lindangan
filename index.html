@@ -4,69 +4,210 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desa Lindangan</title>
-    <link rel="icon" type="image/jpg" href="assets/img/logo-minsel.jpg">
+    <link rel="icon" type="image/jpg" href="assets/img/logo-minsel.jpg" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
-      body { font-family: "Poppins", sans-serif; }
-      .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
-      .fade-in.visible { opacity: 1; transform: translateY(0); }
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
     </style>
   </head>
   <body class="bg-gray-50 text-gray-800">
-    
     <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
-      <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <nav
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
         <a href="#" class="flex items-center gap-2">
-          <img src="assets/img/logo-minsel.jpg" alt="Logo Minsel" class="h-10" />
+          <img
+            src="assets/img/logo-minsel.jpg"
+            alt="Logo Minsel"
+            class="h-10"
+          />
           <div>
-            <span class="block font-bold text-lg leading-tight text-red-700 uppercase">Desa Lindangan</span>
-            <span class="block text-xs text-gray-500 uppercase tracking-widest">Minahasa Selatan</span>
+            <span
+              class="block font-bold text-lg leading-tight text-red-700 uppercase"
+              >Desa Lindangan</span
+            >
+            <span class="block text-xs text-gray-500 uppercase tracking-widest"
+              >Minahasa Selatan</span
+            >
           </div>
         </a>
         <ul class="hidden md:flex space-x-6 font-semibold text-gray-600">
-          <li><a href="#profil" class="hover:text-red-600 transition">Profil</a></li>
-          <li><a href="#pemerintahan" class="hover:text-red-600 transition">Pemerintahan</a></li>
-          <li><a href="#potensi" class="hover:text-red-600 transition">Potensi</a></li>
-          <li><a href="#kontak" class="bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition">Kontak</a></li>
+          <li>
+            <a href="#profil" class="hover:text-red-600 transition">Profil</a>
+          </li>
+          <li>
+            <a href="#pemerintahan" class="hover:text-red-600 transition"
+              >Pemerintahan</a
+            >
+          </li>
+          <li>
+            <a href="#potensi" class="hover:text-red-600 transition">Potensi</a>
+          </li>
+          <li>
+            <a
+              href="#kontak"
+              class="bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition"
+              >Kontak</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
 
-    <section class="relative h-[85vh] flex items-center justify-center text-white overflow-hidden">
+    <section
+      class="relative h-[85vh] flex items-center justify-center text-white overflow-hidden"
+    >
       <div class="absolute inset-0 bg-black/50 z-10"></div>
-      <img src="assets/img/top.jpg" class="absolute inset-0 w-full h-full object-cover" alt="Suasana Desa Lindangan" />
+      <img
+        src="assets/img/top.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Suasana Desa Lindangan"
+      />
       <div class="relative z-20 text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-bold mb-4 uppercase">Selamat Datang</h1>
-        <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">Website Resmi Desa Lindangan</p>
-        <a href="#profil" class="mt-8 inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full font-bold transition-transform hover:scale-105 shadow-xl">Mulai Menjelajah</a>
+        <h1 class="text-5xl md:text-7xl font-bold mb-4 uppercase">
+          Selamat Datang
+        </h1>
+        <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto">
+          Website Resmi Desa Lindangan
+        </p>
+        <a
+          href="#profil"
+          class="mt-8 inline-block bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-full font-bold transition-transform hover:scale-105 shadow-xl"
+          >Mulai Menjelajah</a
+        >
       </div>
     </section>
 
     <main>
-      <section id="profil" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-          <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 class="text-3xl font-bold text-gray-800 mb-6 uppercase">Sejarah Desa</h2>
-              <div id="konten-sejarah" class="text-gray-600 leading-relaxed overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">
-                Memuat sejarah...
-              </div>
-              <button id="btn-sejarah-lengkap" class="text-red-700 font-bold text-sm hover:underline italic">Baca Sejarah Lengkap →</button>
-            </div>
+      <section id="jelajah" class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-4xl font-bold mb-4">Jelajahi Desa</h2>
+          <p class="text-gray-500 mb-12">
+            Pelajari lebih lanjut tentang desa kami melalui profil, sejarah,
+            serta visi dan misi.
+          </p>
 
-            <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-sm">
-              <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                <span class="w-8 h-8 bg-red-600 text-white rounded-lg flex items-center justify-center mr-3 text-sm">📍</span> Letak Geografis & Batas
-              </h3>
-              <p class="text-sm text-gray-600 mb-6 leading-relaxed">Terletak di dataran tinggi (368 mdpl) dan dilewati aliran Sungai Ranoyapo.</p>
-              <div class="space-y-4">
-                <div class="flex items-start justify-between border-b pb-2"><span class="font-bold text-xs text-red-600 uppercase">Utara</span> <p class="text-sm text-gray-700">Desa Ranoyapo, Kec. Ranoyapo</p></div>
-                <div class="flex items-start justify-between border-b pb-2"><span class="font-bold text-xs text-red-600 uppercase">Selatan</span> <p class="text-sm text-gray-700">Desa Torout, Kec. Tompaso Baru</p></div>
-                <div class="flex items-start justify-between border-b pb-2"><span class="font-bold text-xs text-red-600 uppercase">Timur</span> <p class="text-sm text-gray-700">Sungai Ranoyapo, Kec. Tompaso Baru</p></div>
-                <div class="flex items-start justify-between border-b pb-2"><span class="font-bold text-xs text-red-600 uppercase">Barat</span> <p class="text-sm text-gray-700">Hutan Lindung, Kec. Tompaso Baru</p></div>
+          <div class="grid md:grid-cols-3 gap-8">
+            <div
+              class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col items-center"
+            >
+              <div
+                class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 text-red-500 text-2xl"
+              >
+                📍
               </div>
+              <h3 class="text-xl font-bold mb-4">Profil Desa</h3>
+              <p class="text-gray-500 text-sm mb-6">
+                Klik untuk melihat letak geografis dan batas wilayah desa.
+              </p>
+              <button
+                onclick="showModalProfil()"
+                class="mt-auto text-red-600 font-bold hover:underline"
+              >
+                Baca Selengkapnya
+              </button>
+            </div>
+            <div
+              class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col items-center"
+            >
+              <div
+                class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 text-red-500 text-2xl"
+              >
+                📖
+              </div>
+              <h3 class="text-xl font-bold mb-4">Sejarah Desa</h3>
+              <p class="text-gray-500 text-sm mb-6">
+                Klik untuk membaca lebih lanjut tentang sejarah asal-usul desa.
+              </p>
+              <button
+                id="btn-sejarah-lengkap"
+                class="mt-auto text-red-600 font-bold hover:underline"
+              >
+                Baca Selengkapnya
+              </button>
+            </div>
+            <div
+              class="bg-white p-10 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col items-center"
+            >
+              <div
+                class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-6 text-red-500 text-2xl"
+              >
+                🎯
+              </div>
+              <h3 class="text-xl font-bold mb-4">Visi & Misi</h3>
+              <p class="text-gray-500 text-sm mb-6">
+                Klik untuk melihat visi dan misi pembangunan desa kami.
+              </p>
+              <button
+                onclick="showModalVisiMisi()"
+                class="mt-auto text-red-600 font-bold hover:underline"
+              >
+                Baca Selengkapnya
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl font-bold text-center mb-12 uppercase">
+            Statistik Penduduk
+          </h2>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+              <p class="text-xs font-bold text-gray-400 uppercase">
+                Total Penduduk
+              </p>
+              <p id="stat-penduduk" class="text-3xl font-bold text-red-600">
+                0
+              </p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+              <p class="text-xs font-bold text-gray-400 uppercase">Laki-laki</p>
+              <p id="stat-lk" class="text-3xl font-bold text-blue-600">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+              <p class="text-xs font-bold text-gray-400 uppercase">Perempuan</p>
+              <p id="stat-pr" class="text-3xl font-bold text-pink-600">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+              <p class="text-xs font-bold text-gray-400 uppercase">
+                Kepala Keluarga
+              </p>
+              <p id="stat-kk" class="text-3xl font-bold text-gray-800">0</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl shadow-sm">
+              <h4 class="font-bold border-b pb-4 mb-4">Pekerjaan</h4>
+              <div id="list-pekerjaan" class="space-y-3 text-sm"></div>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm">
+              <h4 class="font-bold border-b pb-4 mb-4">Pendidikan</h4>
+              <div id="list-pendidikan" class="space-y-3 text-sm"></div>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-sm">
+              <h4 class="font-bold border-b pb-4 mb-4">Agama</h4>
+              <div id="list-agama" class="space-y-3 text-sm"></div>
             </div>
           </div>
         </div>
@@ -76,11 +217,16 @@
         <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12">
           <div>
             <h2 class="text-3xl font-bold mb-6 uppercase">Visi Desa</h2>
-            <p class="text-xl italic leading-relaxed">"MEWUJUDKAN DESA LINDANGAN YANG HARMONIS, MANDIRI, RELIGIUS, BERMATABAT, KREATIF, MOTIFATIF, INOVATIF, DAN BERDAYA SAING"</p>
+            <p class="text-xl italic leading-relaxed">
+              "MEWUJUDKAN DESA LINDANGAN YANG HARMONIS, MANDIRI, RELIGIUS,
+              BERMATABAT, KREATIF, MOTIFATIF, INOVATIF, DAN BERDAYA SAING"
+            </p>
           </div>
           <div>
             <h2 class="text-3xl font-bold mb-6 uppercase">Misi Desa</h2>
-            <ul class="space-y-3 list-disc list-inside text-lg opacity-90 font-light">
+            <ul
+              class="space-y-3 list-disc list-inside text-lg opacity-90 font-light"
+            >
               <li>Meningkatkan sarana dan prasarana pertanian</li>
               <li>Pengembangan agribisnis berbasis kelompok</li>
               <li>Meningkatkan sumber daya manusia</li>
@@ -93,16 +239,24 @@
 
       <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-          <div class="bg-gray-900 rounded-[2rem] p-10 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8">
-            <h3 class="text-3xl font-bold uppercase tracking-wider">Statistik Desa</h3>
+          <div
+            class="bg-gray-900 rounded-[2rem] p-10 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-center gap-8"
+          >
+            <h3 class="text-3xl font-bold uppercase tracking-wider">
+              Statistik Desa
+            </h3>
             <div class="grid grid-cols-2 gap-12 text-center">
               <div>
-                <p class="text-red-500 text-xs font-bold uppercase mb-2">Total Penduduk</p>
+                <p class="text-red-500 text-xs font-bold uppercase mb-2">
+                  Total Penduduk
+                </p>
                 <p id="stat-penduduk" class="text-5xl font-bold">0</p>
                 <p class="text-[10px] mt-1 opacity-50 italic uppercase">Jiwa</p>
               </div>
               <div>
-                <p class="text-red-500 text-xs font-bold uppercase mb-2">Kepala Keluarga</p>
+                <p class="text-red-500 text-xs font-bold uppercase mb-2">
+                  Kepala Keluarga
+                </p>
                 <p id="stat-kk" class="text-5xl font-bold">0</p>
                 <p class="text-[10px] mt-1 opacity-50 italic uppercase">KK</p>
               </div>
@@ -113,52 +267,146 @@
 
       <section id="pemerintahan" class="py-20 bg-gray-50 text-center">
         <div class="container mx-auto px-4">
-          <h2 class="text-4xl font-bold text-gray-800 mb-12 uppercase">Pemerintah Desa</h2>
+          <h2 class="text-4xl font-bold text-gray-800 mb-12 uppercase">
+            Pemerintah Desa
+          </h2>
           <div class="flex justify-center mb-10">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-red-600 w-full max-w-sm">
-              <h4 class="text-gray-400 uppercase text-xs font-bold tracking-widest">Hukum Tua</h4>
-              <p id="nama-hukum-tua" class="text-2xl font-bold text-gray-900 mt-2 italic">Memuat...</p>
+            <div
+              class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-red-600 w-full max-w-sm"
+            >
+              <h4
+                class="text-gray-400 uppercase text-xs font-bold tracking-widest"
+              >
+                Hukum Tua
+              </h4>
+              <p
+                id="nama-hukum-tua"
+                class="text-2xl font-bold text-gray-900 mt-2 italic"
+              >
+                Memuat...
+              </p>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h4 class="text-red-600 text-xs font-bold uppercase">Sekretaris Desa</h4>
-              <p id="nama-sekdes" class="font-bold text-gray-800 mt-1">Memuat...</p>
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12"
+          >
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+            >
+              <h4 class="text-red-600 text-xs font-bold uppercase">
+                Sekretaris Desa
+              </h4>
+              <p id="nama-sekdes" class="font-bold text-gray-800 mt-1">
+                Memuat...
+              </p>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h4 class="text-red-600 text-xs font-bold uppercase">Kaur Keuangan</h4>
-              <p id="nama-kaur-keu" class="font-bold text-gray-800 mt-1">Memuat...</p>
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+            >
+              <h4 class="text-red-600 text-xs font-bold uppercase">
+                Kaur Keuangan
+              </h4>
+              <p id="nama-kaur-keu" class="font-bold text-gray-800 mt-1">
+                Memuat...
+              </p>
             </div>
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h4 class="text-red-600 text-xs font-bold uppercase">Kaur Perencanaan</h4>
-              <p id="nama-kaur-rencana" class="font-bold text-gray-800 mt-1">Memuat...</p>
+            <div
+              class="bg-white p-6 rounded-xl shadow-sm border border-gray-100"
+            >
+              <h4 class="text-red-600 text-xs font-bold uppercase">
+                Kaur Perencanaan
+              </h4>
+              <p id="nama-kaur-rencana" class="font-bold text-gray-800 mt-1">
+                Memuat...
+              </p>
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto mb-12 text-sm">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"><h4 class="text-red-600 text-[10px] font-bold uppercase">Kasie Pem</h4><p id="nama-kasie-pem" class="font-bold mt-1">-</p></div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"><h4 class="text-red-600 text-[10px] font-bold uppercase">Kasie Kesra</h4><p id="nama-kasie-kesra" class="font-bold mt-1">-</p></div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"><h4 class="text-red-600 text-[10px] font-bold uppercase">Kasie Pelayanan</h4><p id="nama-kasie-pelayanan" class="font-bold mt-1">-</p></div>
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"><h4 class="text-red-600 text-[10px] font-bold uppercase">Kaur Umum</h4><p id="nama-kaur-umum" class="font-bold mt-1">-</p></div>
+          <div
+            class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-6xl mx-auto mb-12 text-sm"
+          >
+            <div
+              class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"
+            >
+              <h4 class="text-red-600 text-[10px] font-bold uppercase">
+                Kasie Pem
+              </h4>
+              <p id="nama-kasie-pem" class="font-bold mt-1">-</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"
+            >
+              <h4 class="text-red-600 text-[10px] font-bold uppercase">
+                Kasie Kesra
+              </h4>
+              <p id="nama-kasie-kesra" class="font-bold mt-1">-</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"
+            >
+              <h4 class="text-red-600 text-[10px] font-bold uppercase">
+                Kasie Pelayanan
+              </h4>
+              <p id="nama-kasie-pelayanan" class="font-bold mt-1">-</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-xl shadow-sm border border-gray-50"
+            >
+              <h4 class="text-red-600 text-[10px] font-bold uppercase">
+                Kaur Umum
+              </h4>
+              <p id="nama-kaur-umum" class="font-bold mt-1">-</p>
+            </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500"><h4 class="text-gray-500 text-[10px] font-bold uppercase">JAGA 1</h4><p id="nama-jaga-1" class="font-bold">-</p></div>
-            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500"><h4 class="text-gray-500 text-[10px] font-bold uppercase">JAGA 2</h4><p id="nama-jaga-2" class="font-bold">-</p></div>
-            <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500"><h4 class="text-gray-500 text-[10px] font-bold uppercase">JAGA 3</h4><p id="nama-jaga-3" class="font-bold">-</p></div>
+            <div
+              class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500"
+            >
+              <h4 class="text-gray-500 text-[10px] font-bold uppercase">
+                JAGA 1
+              </h4>
+              <p id="nama-jaga-1" class="font-bold">-</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500"
+            >
+              <h4 class="text-gray-500 text-[10px] font-bold uppercase">
+                JAGA 2
+              </h4>
+              <p id="nama-jaga-2" class="font-bold">-</p>
+            </div>
+            <div
+              class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-red-500"
+            >
+              <h4 class="text-gray-500 text-[10px] font-bold uppercase">
+                JAGA 3
+              </h4>
+              <p id="nama-jaga-3" class="font-bold">-</p>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="potensi" class="py-20 bg-white">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 uppercase mb-12">Potensi Desa</h2>
-            <div id="potensi-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left"></div>
+          <h2 class="text-4xl font-bold text-gray-800 uppercase mb-12">
+            Potensi Desa
+          </h2>
+          <div
+            id="potensi-container"
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left"
+          ></div>
         </div>
       </section>
 
       <section id="berita" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 uppercase mb-12">Berita Desa</h2>
-            <div id="berita-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left"></div>
+          <h2 class="text-4xl font-bold text-gray-800 uppercase mb-12">
+            Berita Desa
+          </h2>
+          <div
+            id="berita-container"
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left"
+          ></div>
         </div>
       </section>
     </main>
@@ -167,13 +415,24 @@
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
-            <img src="assets/img/logo-minsel.jpg" alt="Logo Minsel" class="h-16 mb-6 grayscale brightness-200" />
-            <h4 class="text-white text-xl font-bold mb-4 uppercase">Desa Lindangan</h4>
-            <p class="text-sm leading-relaxed opacity-70">Website resmi Pemerintah Desa Lindangan, Kecamatan Tompaso Baru, Kabupaten Minahasa Selatan.</p>
+            <img
+              src="assets/img/logo-minsel.jpg"
+              alt="Logo Minsel"
+              class="h-16 mb-6 grayscale brightness-200"
+            />
+            <h4 class="text-white text-xl font-bold mb-4 uppercase">
+              Desa Lindangan
+            </h4>
+            <p class="text-sm leading-relaxed opacity-70">
+              Website resmi Pemerintah Desa Lindangan, Kecamatan Tompaso Baru,
+              Kabupaten Minahasa Selatan.
+            </p>
           </div>
 
           <div>
-            <h4 class="text-white text-lg font-bold mb-6 uppercase">Hubungi Kami</h4>
+            <h4 class="text-white text-lg font-bold mb-6 uppercase">
+              Hubungi Kami
+            </h4>
             <ul class="space-y-4 text-sm">
               <li class="flex items-center gap-3 italic">
                 <span>📧</span> lindangandesa@gmail.com
@@ -182,20 +441,34 @@
                 <span>📞</span> +62 823-7852-4849
               </li>
               <li class="flex items-start gap-3">
-                <span>📍</span> Jl. Raya Tompaso Baru, Lindangan, Sulawesi Utara.
+                <span>📍</span> Jl. Raya Tompaso Baru, Lindangan, Sulawesi
+                Utara.
               </li>
             </ul>
           </div>
 
-          <div class="h-64 rounded-2xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15957.57077699119!2d124.5000000!3d0.9000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x327df00000000001%3A0x0000000000000000!2sLindangan%2C%20Tompaso%20Baru%2C%20South%20Minahasa%20Regency%2C%20North%20Sulawesi!5e0!3m2!1sen!2sid!4v1710000000000" width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+          <div
+            class="h-64 rounded-2xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15957.57077699119!2d124.5000000!3d0.9000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x327df00000000001%3A0x0000000000000000!2sLindangan%2C%20Tompaso%20Baru%2C%20South%20Minahasa%20Regency%2C%20North%20Sulawesi!5e0!3m2!1sen!2sid!4v1710000000000"
+              width="100%"
+              height="100%"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
 
         <hr class="border-gray-800 mb-8" />
-        <div class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 italic">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 italic"
+        >
           <p>© 2026 Pemerintah Desa Lindangan. All Rights Reserved.</p>
-          <p class="mt-2 md:mt-0 uppercase tracking-widest">Developed by KKT UNSRAT 2026</p>
+          <p class="mt-2 md:mt-0 uppercase tracking-widest">
+            Developed by KKT UNSRAT 2026
+          </p>
         </div>
       </div>
     </footer>

@@ -1,73 +1,92 @@
-
-
-// 1. FUNGSI MEMUAT DATA APARAT, SEJARAH, DAN STATISTIK
 async function loadAparatData() {
   try {
     const response = await fetch(
       "data/pemerintahan.json?t=" + new Date().getTime(),
     );
-    if (!response.ok) return;
     const data = await response.json();
 
-    // Mapping untuk Nama Perangkat Desa & Statistik
-    const mapping = {
-      "nama-hukum-tua": data.hukum_tua,
-      "nama-sekdes": data.sekdes,
-      "nama-kasie-pem": data.kasie_pemerintahan,
-      "nama-kasie-kesra": data.kasie_kesejahteraan,
-      "nama-kasie-pelayanan": data.kasie_pelayanan,
-      "nama-kaur-umum": data.kaur_umum,
-      "nama-kaur-rencana": data.kaur_perencanaan,
-      "nama-kaur-keu": data.kaur_keuangan,
-      "nama-jaga-1": data.jaga_1,
-      "nama-jaga-2": data.jaga_2,
-      "nama-jaga-3": data.jaga_3,
-      "stat-penduduk": data.total_penduduk,
-      "stat-kk": data.total_kk,
+    // 1. Data Utama & Statistik Dasar
+    document.getElementById("stat-penduduk").innerText =
+      data.stats_utama.penduduk || "0";
+    document.getElementById("stat-kk").innerText = data.stats_utama.kk || "0";
+    document.getElementById("stat-lk").innerText = data.stats_utama.lk || "0";
+    document.getElementById("stat-pr").innerText = data.stats_utama.pr || "0";
+
+    // 2. Loop Data Pekerjaan
+    const listPekerjaan = document.getElementById("list-pekerjaan");
+    listPekerjaan.innerHTML = "";
+    data.pekerjaan.forEach((p) => {
+      listPekerjaan.innerHTML += `<div class="flex justify-between"><span>${p.nama}</span><span class="font-bold text-red-600">${p.jumlah}</span></div>`;
+    });
+
+    // 3. Loop Data Pendidikan
+    const listPendidikan = document.getElementById("list-pendidikan");
+    listPendidikan.innerHTML = "";
+    data.pendidikan.forEach((p) => {
+      listPendidikan.innerHTML += `<div class="flex justify-between"><span>${p.nama}</span><span class="font-bold text-red-600">${p.jumlah}</span></div>`;
+    });
+
+    // 4. Loop Data Agama
+    const listAgama = document.getElementById("list-agama");
+    listAgama.innerHTML = "";
+    data.agama.forEach((a) => {
+      listAgama.innerHTML += `<div class="flex justify-between"><span>${a.nama}</span><span class="font-bold text-red-600">${a.jumlah}</span></div>`;
+    });
+
+    // 5. Fungsi Modal Profil (Gunakan PETA.png)
+    window.showModalProfil = () => {
+      showModal(
+        "Profil & Letak Geografis",
+        "assets/img/PETA.png",
+        `
+                <b>Letak Geografis:</b><br>
+                Desa Lindangan berada di dataran tinggi (368 mdpl) dan dilewati aliran Sungai Ranoyapo.<br><br>
+                <b>Batas Wilayah:</b><br>
+                Utara: Desa Ranoyapo<br>
+                Selatan: Desa Torout<br>
+                Timur: Sungai Ranoyapo<br>
+                Barat: Hutan Lindung
+            `,
+        "profil",
+      );
     };
 
-    for (const [id, value] of Object.entries(mapping)) {
-      const el = document.getElementById(id);
-      if (el) el.innerText = value || (id.startsWith("stat") ? "0" : "-");
-    }
+    // 6. Fungsi Modal Visi Misi
+    window.showModalVisiMisi = () => {
+      showModal(
+        "Visi & Misi Desa",
+        "",
+        `
+                <h3 class='font-bold text-red-600'>VISI:</h3>
+                <p class='italic'>"${data.visi}"</p><br>
+                <h3 class='font-bold text-red-600'>MISI:</h3>
+                <p>${data.misi.replace(/\n/g, "<br>")}</p>
+            `,
+        "visimisi",
+      );
+    };
 
-    // Handle Sejarah Desa (Preview & Modal)
-    const sejarahEl = document.getElementById("konten-sejarah");
-    const btnSejarah = document.getElementById("btn-sejarah-lengkap");
-
-    if (sejarahEl && data.sejarah) {
-      // Tampilkan preview sejarah
-      sejarahEl.innerHTML = data.sejarah.replace(/\n/g, "<br>");
-
-      // Pasang fungsi klik untuk modal sejarah
-      if (btnSejarah) {
-        btnSejarah.onclick = () => {
-          showModal(
-            "Sejarah Lengkap Desa Lindangan",
-            "",
-            data.sejarah,
-            "tutup",
-          );
-        };
-      }
-    }
+    // 7. Sejarah
+    document.getElementById("btn-sejarah-lengkap").onclick = () => {
+      showModal("Sejarah Desa", "", data.sejarah, "sejarah");
+    };
   } catch (e) {
-    console.error("Gagal muat data profil desa:", e);
+    console.error("Error muat data:", e);
   }
 }
 
 // 2. FUNGSI MEMUAT POTENSI DESA
 async function loadPotensiDesa() {
-    const container = document.getElementById('potensi-container');
-    if (!container) return;
-    try {
-        const response = await fetch('data/potensi.json?t=' + new Date().getTime());
-        const data = await response.json();
-        const list = data.potensi || [];
-        
-        container.innerHTML = ''; 
-        list.forEach(item => {
-            container.innerHTML += `
+  const container = document.getElementById("potensi-container");
+  if (!container) return;
+  try {
+    const response = await fetch("data/potensi.json?t=" + new Date().getTime());
+    const data = await response.json();
+    const list = data.potensi || [];
+
+    container.innerHTML = "";
+    list.forEach((item) => {
+      container.innerHTML += `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
                     <img src="${item.image}" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
@@ -77,15 +96,17 @@ async function loadPotensiDesa() {
                             ${item.description}
                         </p>
                         <div class="mt-auto pt-2">
-                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', 'potensi', '${item.category}')" 
+                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, "<br>").replace(/'/g, "\\'")}', 'potensi', '${item.category}')" 
                                     class="text-red-700 font-bold text-xs uppercase tracking-tighter hover:underline">
                                 Lihat Detail Potensi ↓
                             </button>
                         </div>
                     </div>
                 </div>`;
-        });
-    } catch (e) { console.error("Potensi Error"); }
+    });
+  } catch (e) {
+    console.error("Potensi Error");
+  }
 }
 
 // 3. FUNGSI MEMUAT BERITA DESA
