@@ -5,56 +5,67 @@
 
 // 1. FUNGSI UTAMA: MEMUAT DATA APARAT & STATISTIK
 async function loadAparatData() {
-    try {
-        const response = await fetch('data/pemerintahan.json?t=' + new Date().getTime());
-        if (!response.ok) return;
-        const data = await response.json();
+  try {
+    const response = await fetch(
+      "data/pemerintahan.json?t=" + new Date().getTime(),
+    );
+    if (!response.ok) return;
+    const data = await response.json();
 
-        // --- A. Sinkronisasi Nama Aparat (Dinamis) ---
-        const pimpinan = data.aparat || {};
-        const mapping = {
-            'nama-hukum-tua': pimpinan.hukum_tua,
-            'nama-sekdes': pimpinan.sekdes,
-            'nama-kasie-pem': pimpinan.kasie_pem,
-            'nama-kasie-kesra': pimpinan.kasie_kesra,
-            'nama-kasie-pelayanan': pimpinan.kasie_pelayanan,
-            'nama-kaur-umum': pimpinan.kaur_umum,
-            'nama-kaur-rencana': pimpinan.kaur_rencana,
-            'nama-kaur-keu': pimpinan.kaur_keu,
-            'nama-jaga-1': pimpinan.jaga_1,
-            'nama-jaga-2': pimpinan.jaga_2,
-            'nama-jaga-3': pimpinan.jaga_3
-        };
+    // --- A. Sinkronisasi Nama Aparat (Dinamis) ---
+    const pimpinan = data.aparat || {};
+    const mapping = {
+      "nama-hukum-tua": pimpinan.hukum_tua,
+      "nama-sekdes": pimpinan.sekdes,
+      "nama-kasie-pem": pimpinan.kasie_pem,
+      "nama-kasie-kesra": pimpinan.kasie_kesra,
+      "nama-kasie-pelayanan": pimpinan.kasie_pelayanan,
+      "nama-kaur-umum": pimpinan.kaur_umum,
+      "nama-kaur-rencana": pimpinan.kaur_rencana,
+      "nama-kaur-keu": pimpinan.kaur_keu,
+      "nama-jaga-1": pimpinan.jaga_1,
+      "nama-jaga-2": pimpinan.jaga_2,
+      "nama-jaga-3": pimpinan.jaga_3,
+    };
 
-        for (const [id, value] of Object.entries(mapping)) {
-            const el = document.getElementById(id);
-            if (el) el.innerText = value || '-';
-        }
+    for (const [id, value] of Object.entries(mapping)) {
+      const el = document.getElementById(id);
+      if (el) el.innerText = value || "-";
+    }
 
-        // --- B. Statistik Utama ---
-        const stats = data.stats_utama || {};
-        if(document.getElementById('stat-penduduk')) document.getElementById('stat-penduduk').innerText = stats.penduduk || '0';
-        if(document.getElementById('stat-kk')) document.getElementById('stat-kk').innerText = stats.kk || '0';
-        if(document.getElementById('stat-lk')) document.getElementById('stat-lk').innerText = stats.lk || '0';
-        if(document.getElementById('stat-pr')) document.getElementById('stat-pr').innerText = stats.pr || '0';
+    // --- B. Statistik Utama ---
+    const stats = data.stats_utama || {};
+    if (document.getElementById("stat-penduduk"))
+      document.getElementById("stat-penduduk").innerText =
+        stats.penduduk || "0";
+    if (document.getElementById("stat-kk"))
+      document.getElementById("stat-kk").innerText = stats.kk || "0";
+    if (document.getElementById("stat-lk"))
+      document.getElementById("stat-lk").innerText = stats.lk || "0";
+    if (document.getElementById("stat-pr"))
+      document.getElementById("stat-pr").innerText = stats.pr || "0";
 
-        // --- C. Statistik Detail (Looping List) ---
-        renderListStats('list-pekerjaan', data.pekerjaan);
-        renderListStats('list-pendidikan', data.pendidikan);
-        renderListStats('list-agama', data.agama);
+    // --- C. Statistik Detail (Looping List) ---
+    renderListStats("list-pekerjaan", data.pekerjaan);
+    renderListStats("list-pendidikan", data.pendidikan);
+    renderListStats("list-agama", data.agama);
 
-        // --- D. Logika Modal Jelajah Desa ---
-        const profilData = data.profil_section || {};
+    // --- D. Logika Modal Jelajah Desa ---
+    const profilData = data.profil_section || {};
 
-        // Tombol Sejarah
-        const btnSejarah = document.getElementById('btn-sejarah-lengkap');
-        if (btnSejarah) {
-            btnSejarah.onclick = () => showModal("Sejarah Desa", "", profilData.sejarah, "sejarah");
-        }
+    // Tombol Sejarah
+    const btnSejarah = document.getElementById("btn-sejarah-lengkap");
+    if (btnSejarah) {
+      btnSejarah.onclick = () =>
+        showModal("Sejarah Desa", "", profilData.sejarah, "sejarah");
+    }
 
-        // Fungsi Global untuk Modal Profil (Peta)
-        window.showModalProfil = () => {
-            showModal("Profil & Letak Geografis", "assets/img/PETA.png", `
+    // Fungsi Global untuk Modal Profil (Peta)
+    window.showModalProfil = () => {
+      showModal(
+        "Profil & Letak Geografis",
+        "assets/img/PETA.png",
+        `
                 <div class="space-y-4 text-sm">
                     <p><b>Kondisi Geografis:</b> Desa Lindangan berada di dataran tinggi (368 mdpl) dan dilewati aliran Sungai Ranoyapo.</p>
                     <hr>
@@ -66,56 +77,62 @@ async function loadAparatData() {
                         <li><span class="text-red-600 font-bold">BARAT:</span> Hutan Lindung</li>
                     </ul>
                 </div>
-            `, "profil");
-        };
+            `,
+        "profil",
+      );
+    };
 
-        // Fungsi Global untuk Modal Visi Misi
-        window.showModalVisiMisi = () => {
-            showModal("Visi & Misi Desa", "", `
+    // Fungsi Global untuk Modal Visi Misi
+    window.showModalVisiMisi = () => {
+      showModal(
+        "Visi & Misi Desa",
+        "",
+        `
                 <div class="space-y-6">
                     <div>
                         <h4 class="text-red-600 font-bold uppercase tracking-widest text-xs mb-2">Visi</h4>
-                        <p class="text-xl italic font-medium">"${profilData.visi || '-'}"</p>
+                        <p class="text-xl italic font-medium">"${profilData.visi || "-"}"</p>
                     </div>
                     <div>
                         <h4 class="text-red-600 font-bold uppercase tracking-widest text-xs mb-2">Misi</h4>
-                        <div class="text-gray-700 leading-relaxed">${profilData.misi ? profilData.misi.replace(/\n/g, '<br>') : '-'}</div>
+                        <div class="text-gray-700 leading-relaxed">${profilData.misi ? profilData.misi.replace(/\n/g, "<br>") : "-"}</div>
                     </div>
                 </div>
-            `, "visimisi");
-        };
-
-    } catch (e) {
-        console.error("Gagal memuat data pemerintahan:", e);
-    }
+            `,
+        "visimisi",
+      );
+    };
+  } catch (e) {
+    console.error("Gagal memuat data pemerintahan:", e);
+  }
 }
 
 // FUNGSI PEMBANTU: Render List Statistik
 function renderListStats(containerId, dataList) {
-    const container = document.getElementById(containerId);
-    if (!container || !dataList) return;
-    container.innerHTML = '';
-    dataList.forEach(item => {
-        container.innerHTML += `
+  const container = document.getElementById(containerId);
+  if (!container || !dataList) return;
+  container.innerHTML = "";
+  dataList.forEach((item) => {
+    container.innerHTML += `
             <div class="flex justify-between items-center border-b border-gray-50 pb-2">
                 <span class="text-gray-600">${item.nama}</span>
                 <span class="font-bold text-red-600">${item.jumlah}</span>
             </div>`;
-    });
+  });
 }
 
 // 2. FUNGSI MEMUAT POTENSI DESA (Tampil Semua)
 async function loadPotensiDesa() {
-    const container = document.getElementById('potensi-container');
-    if (!container) return;
-    try {
-        const response = await fetch('data/potensi.json?t=' + new Date().getTime());
-        const data = await response.json();
-        const list = data.potensi || [];
-        
-        container.innerHTML = ''; 
-        list.forEach(item => {
-            container.innerHTML += `
+  const container = document.getElementById("potensi-container");
+  if (!container) return;
+  try {
+    const response = await fetch("data/potensi.json?t=" + new Date().getTime());
+    const data = await response.json();
+    const list = data.potensi || [];
+
+    container.innerHTML = "";
+    list.forEach((item) => {
+      container.innerHTML += `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-lg transition-all">
                     <img src="${item.image}" class="w-full h-48 object-cover">
                     <div class="p-6 flex flex-col flex-grow">
@@ -125,73 +142,115 @@ async function loadPotensiDesa() {
                             ${item.description}
                         </p>
                         <div class="mt-auto pt-2">
-                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', 'potensi', '${item.category}')" 
+                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.description.replace(/\n/g, "<br>").replace(/'/g, "\\'")}', 'potensi', '${item.category}')" 
                                     class="text-red-700 font-bold text-xs uppercase tracking-tighter hover:underline">
                                 Lihat Detail Potensi ↓
                             </button>
                         </div>
                     </div>
                 </div>`;
-        });
-    } catch (e) { console.error("Potensi Error:", e); }
+    });
+  } catch (e) {
+    console.error("Potensi Error:", e);
+  }
 }
 
 // 3. FUNGSI MEMUAT BERITA DESA
 async function loadBeritaDesa() {
-    const container = document.getElementById('berita-container');
-    if (!container) return;
-    try {
-        // Ganti URL dengan repo asli Anda
-        const repoUrl = 'https://api.github.com/repos/HizkiaPappang/desa-lindangan/contents/data/berita';
-        const response = await fetch(repoUrl);
-        
-        if (!response.ok) {
-            console.error("Gagal akses folder berita di GitHub");
-            return;
-        }
+  const container = document.getElementById("berita-container");
+  if (!container) return;
 
-        const files = await response.json();
-        // Ambil file JSON saja, urutkan dari yang terbaru, ambil 6 saja
-        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse().slice(0, 6);
-        
-        container.innerHTML = ''; 
-        for (const file of newsFiles) {
-            const res = await fetch(file.download_url);
-            const item = await res.json();
-            const date = new Date(item.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  // Tampilkan loading saat proses ambil data
+  container.innerHTML =
+    '<p class="text-center col-span-full text-gray-400 italic">Sedang memuat berita terbaru...</p>';
 
-            container.innerHTML += `
+  try {
+    // PERHATIKAN: Ganti 'HizkiaPappang' dan 'desa-lindangan' jika username/repo berbeda!
+    const repoPath = "HizkiaPappang/desa-lindangan";
+    const url = `https://api.github.com/repos/${repoPath}/contents/data/berita`;
+
+    console.log("Mencoba mengambil berita dari:", url);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        container.innerHTML =
+          '<p class="text-center col-span-full text-gray-400">Folder berita belum ada di GitHub. Silakan buat berita pertama di Admin.</p>';
+      } else if (response.status === 403) {
+        container.innerHTML =
+          '<p class="text-center col-span-full text-red-500">Batas akses GitHub API tercapai (Rate Limit). Coba lagi nanti atau gunakan VPN/Hotspot lain.</p>';
+      }
+      return;
+    }
+
+    const files = await response.json();
+
+    // Filter hanya file .json dan balik urutan (terbaru di atas)
+    const newsFiles = files.filter((f) => f.name.endsWith(".json")).reverse();
+
+    if (newsFiles.length === 0) {
+      container.innerHTML =
+        '<p class="text-center col-span-full text-gray-400">Belum ada berita yang dipublikasikan.</p>';
+      return;
+    }
+
+    container.innerHTML = ""; // Bersihkan teks loading
+
+    // Ambil 6 berita terbaru
+    for (const file of newsFiles.slice(0, 6)) {
+      const res = await fetch(file.download_url);
+      const item = await res.json();
+
+      // Format tanggal Indonesia
+      const dateStr = item.date
+        ? new Date(item.date).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })
+        : "Tanggal tidak tersedia";
+      const bodyPreview = item.body ? item.body.replace(/[#*]/g, "") : "";
+
+      container.innerHTML += `
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
-                    <img src="${item.image}" class="w-full h-40 object-cover">
-                    <div class="p-5 flex flex-col flex-grow">
-                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${date}</p>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
+                    <img src="${item.image || "assets/img/hero-desa.jpg"}" class="w-full h-40 object-cover border-b" onerror="this.src='assets/img/hero-desa.jpg'">
+                    <div class="p-5 flex flex-col flex-grow text-left">
+                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${dateStr}</p>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title || "Tanpa Judul"}</h3>
                         <p class="text-gray-500 text-xs overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
-                            ${item.body.replace(/[#*]/g, '')}
+                            ${bodyPreview}
                         </p>
                         <div class="mt-auto pt-4 border-t border-gray-50">
-                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.body.replace(/\n/g, '<br>').replace(/'/g, "\\'")}', 'berita')" 
+                            <button onclick="showModal('${item.title ? item.title.replace(/'/g, "\\'") : "Berita"}', '${item.image || ""}', '${item.body ? item.body.replace(/\n/g, "<br>").replace(/'/g, "\\'") : ""}', 'berita')" 
                                     class="text-red-700 font-bold text-xs italic hover:underline">
                                 Baca Selengkapnya →
                             </button>
                         </div>
                     </div>
                 </div>`;
-        }
-    } catch (e) {
-        console.error("Error Berita:", e);
     }
+  } catch (e) {
+    console.error("Error Berita:", e);
+    container.innerHTML =
+      '<p class="text-center col-span-full text-red-500 italic text-sm">Gagal memuat berita. Periksa koneksi internet atau konfigurasi GitHub.</p>';
+  }
 }
 
 // 4. FUNGSI MODAL UNIVERSAL
 function showModal(title, image, content, type, category = "") {
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm';
-    
-    const modalImage = image ? `<img src="${image}" class="w-full h-64 md:h-80 object-cover rounded-t-3xl">` : '';
-    const badge = category ? `<span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full shadow-lg uppercase">${category}</span>` : '';
-    
-    modal.innerHTML = `
+  const modal = document.createElement("div");
+  modal.className =
+    "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm";
+
+  const modalImage = image
+    ? `<img src="${image}" class="w-full h-64 md:h-80 object-cover rounded-t-3xl">`
+    : "";
+  const badge = category
+    ? `<span class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-4 py-2 rounded-full shadow-lg uppercase">${category}</span>`
+    : "";
+
+  modal.innerHTML = `
         <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
             <div class="relative">${modalImage}${badge}</div>
             <div class="p-8 md:p-12">
@@ -206,13 +265,15 @@ function showModal(title, image, content, type, category = "") {
             </div>
         </div>
     `;
-    document.body.appendChild(modal);
-    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+  document.body.appendChild(modal);
+  modal.onclick = (e) => {
+    if (e.target === modal) modal.remove();
+  };
 }
 
 // INIT
-document.addEventListener('DOMContentLoaded', () => {
-    loadAparatData();
-    loadPotensiDesa();
-    loadBeritaDesa();
+document.addEventListener("DOMContentLoaded", () => {
+  loadAparatData();
+  loadPotensiDesa();
+  loadBeritaDesa();
 });
