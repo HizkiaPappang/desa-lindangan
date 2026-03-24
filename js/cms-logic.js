@@ -212,23 +212,26 @@ async function loadBeritaDesa() {
         : "Tanggal tidak tersedia";
       const bodyPreview = item.body ? item.body.replace(/[#*]/g, "") : "";
 
+      // Cari bagian ini di dalam loadBeritaDesa:
       container.innerHTML += `
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
-                    <img src="${item.image || "assets/img/hero-desa.jpg"}" class="w-full h-40 object-cover border-b" onerror="this.src='assets/img/hero-desa.jpg'">
-                    <div class="p-5 flex flex-col flex-grow text-left">
-                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${dateStr}</p>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title || "Tanpa Judul"}</h3>
-                        <p class="text-gray-500 text-xs overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
-                            ${bodyPreview}
-                        </p>
-                        <div class="mt-auto pt-4 border-t border-gray-50">
-                            <button onclick="showModal('${item.title ? item.title.replace(/'/g, "\\'") : "Berita"}', '${item.image || ""}', '${item.body ? item.body.replace(/\n/g, "<br>").replace(/'/g, "\\'") : ""}', 'berita')" 
-                                    class="text-red-700 font-bold text-xs italic hover:underline">
-                                Baca Selengkapnya →
-                            </button>
-                        </div>
-                    </div>
-                </div>`;
+    <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
+        <img src="${item.image}" class="w-full h-40 object-cover">
+        <div class="p-5 flex flex-col flex-grow">
+            <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${date}</p>
+            <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
+            
+            <p class="text-gray-500 text-xs overflow-hidden mb-4" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                ${item.body.replace(/[#*]/g, "")}
+            </p>
+            
+            <div class="mt-auto pt-4 border-t border-gray-50">
+                <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.body.replace(/\n/g, "<br>").replace(/'/g, "\\'")}', 'berita')" 
+                        class="text-red-700 font-bold text-xs italic hover:underline">
+                    Baca Selengkapnya →
+                </button>
+            </div>
+        </div>
+    </div>`;
     }
   } catch (e) {
     console.error("Error Berita:", e);
