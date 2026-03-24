@@ -147,23 +147,26 @@ async function loadBeritaDesa() {
       });
 
       // Logika Pemotong Teks (Max 150 Karakter)
+      // POTONG TEKS DI SINI (150 karakter saja)
       const ringkasan = item.body
         ? item.body.substring(0, 150).replace(/[#*]/g, "") + "..."
         : "";
 
       container.innerHTML += `
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
-                    <img src="${item.image}" class="w-full h-40 object-cover" onerror="this.src='assets/img/hero-desa.jpg'">
-                    <div class="p-5 flex flex-col flex-grow text-left">
-                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${dateStr}</p>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title}</h3>
-                        <p class="text-gray-500 text-xs mb-4 leading-relaxed">${ringkasan}</p>
-                        <div class="mt-auto pt-4 border-t border-gray-50">
-                            <button onclick="showModal('${item.title.replace(/'/g, "\\'")}', '${item.image}', '${item.body.replace(/\n/g, "<br>").replace(/'/g, "\\'")}', 'berita')" 
-                                    class="text-red-700 font-bold text-xs italic hover:underline">Baca Selengkapnya →</button>
-                        </div>
-                    </div>
-                </div>`;
+    <div class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
+        <img src="${item.image}" class="w-full h-40 object-cover">
+        <div class="p-5 flex flex-col flex-grow text-left">
+            <h3 class="font-bold text-gray-800 mb-2">${item.title}</h3>
+            
+            <p class="text-gray-500 text-xs mb-4">
+                ${ringkasan}
+            </p>
+            
+            <div class="mt-auto pt-4 border-t">
+                <button class="text-red-700 font-bold text-xs italic">Baca Selengkapnya →</button>
+            </div>
+        </div>
+    </div>`;
     }
   } catch (e) {
     console.error("Berita Error:", e);
