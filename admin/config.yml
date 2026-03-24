@@ -96,8 +96,7 @@ collections:
       - { label: "Tanggal", name: "date", widget: "datetime" }
       - { label: "Kategori", name: "category", widget: "select", options: ["Kegiatan", "Pengumuman", "Pembangunan"] }
       - { label: "Foto Sampul", name: "image", widget: "image" }
-      - { label: "Isi Berita", name: "body", widget: "markdown" }
-
+      - { label: "Isi Berita", name: "body", widget: "text" } # GANTI 'markdown' jadi 'text' sementara untuk tes
   # 3. KOLEKSI POTENSI DESA (File-based - FIXED)
   - name: "potensi_list"
     label: "Potensi Desa"
