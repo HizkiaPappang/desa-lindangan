@@ -122,57 +122,79 @@ async function loadPotensiDesa() {
 }
 
 // 3. MEMUAT BERITA DESA (Dengan Pemotong Teks)
+// --- FUNGSI FULL LOAD BERITA DESA ---
 async function loadBeritaDesa() {
-  const container = document.getElementById("berita-container");
-  if (!container) return;
-  try {
-    // PERHATIKAN: Pastikan Username dan Repo Sesuai!
-    const repoPath = "HizkiaPappang/desa-lindangan";
-    const url = `https://api.github.com/repos/${repoPath}/contents/data/berita`;
+    const container = document.getElementById('berita-container');
+    if (!container) return;
+    
+    // Tampilkan pesan loading sementara
+    container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Memuat berita terbaru...</p>';
 
-    const response = await fetch(url);
-    if (!response.ok) return;
+    try {
+        // Ganti 'HizkiaPappang' dan 'desa-lindangan' sesuai dengan Repo GitHub kamu
+        const repoPath = 'HizkiaPappang/desa-lindangan';
+        const url = `https://api.github.com/repos/${repoPath}/contents/data/berita`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            container.innerHTML = '<p class="text-center col-span-full text-gray-400 italic">Belum ada berita yang tersedia.</p>';
+            return;
+        }
 
-    const files = await response.json();
-    const newsFiles = files.filter((f) => f.name.endsWith(".json")).reverse();
+        const files = await response.json();
+        
+        // Filter hanya file .json dan balik urutan (terbaru di atas)
+        const newsFiles = files.filter(f => f.name.endsWith('.json')).reverse();
 
-    container.innerHTML = "";
-    for (const file of newsFiles.slice(0, 6)) {
-      const res = await fetch(file.download_url);
-      const item = await res.json();
-      const dateStr = new Date(item.date).toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      });
+        if (newsFiles.length === 0) {
+            container.innerHTML = '<p class="text-center col-span-full text-gray-400">Belum ada berita yang dipublikasikan.</p>';
+            return;
+        }
 
-      // Logika Pemotong Teks (Max 150 Karakter)
-      // POTONG TEKS DI SINI (150 karakter saja)
-      const ringkasan = item.body
-        ? item.body.substring(0, 150).replace(/[#*]/g, "") + "..."
-        : "";
+        container.innerHTML = ''; // Bersihkan kontainer sebelum isi data
 
-      container.innerHTML += `
-    <div class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
-        <img src="${item.image}" class="w-full h-40 object-cover">
-        <div class="p-5 flex flex-col flex-grow text-left">
-            <h3 class="font-bold text-gray-800 mb-2">${item.title}</h3>
+        // Ambil 6 berita terbaru saja
+        for (const file of newsFiles.slice(0, 6)) {
+            const res = await fetch(file.download_url);
+            const item = await res.json();
             
-            <p class="text-gray-500 text-xs mb-4">
-                ${ringkasan}
-            </p>
+            // 1. Format Tanggal Indonesia
+            const dateStr = item.date ? new Date(item.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Baru saja';
             
-            <div class="mt-auto pt-4 border-t">
-                <button class="text-red-700 font-bold text-xs italic">Baca Selengkapnya →</button>
-            </div>
-        </div>
-    </div>`;
+            // 2. Potong Ringkasan (150 Karakter) agar kotak tetap sejajar
+            const rawBody = item.body || '';
+            const ringkasan = rawBody.substring(0, 150).replace(/[#*]/g, '') + '...';
+
+            // 3. MEMBERSIHKAN DATA UNTUK TOMBOL (PENTING!)
+            // Kita bersihkan tanda kutip agar fungsi showModal tidak error/macet
+            const safeTitle = item.title ? item.title.replace(/'/g, "\\'").replace(/"/g, '&quot;') : 'Berita Desa';
+            const safeImage = item.image || 'assets/img/top.jpg';
+            // Ganti baris baru (\n) menjadi <br> agar rapi di dalam modal
+            const safeBody = rawBody.replace(/\n/g, '<br>').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+            container.innerHTML += `
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full hover:shadow-md transition-all">
+                    <img src="${safeImage}" class="w-full h-48 object-cover border-b" onerror="this.src='assets/img/top.jpg'">
+                    <div class="p-5 flex flex-col flex-grow text-left">
+                        <p class="text-red-600 text-[10px] font-bold mb-1 uppercase tracking-widest">${dateStr}</p>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">${item.title || 'Tanpa Judul'}</h3>
+                        <p class="text-gray-500 text-xs mb-4 leading-relaxed">${ringkasan}</p>
+                        
+                        <div class="mt-auto pt-4 border-t border-gray-50">
+                            <button onclick="showModal('${safeTitle}', '${safeImage}', '${safeBody}', 'berita')" 
+                                    class="text-red-700 font-bold text-xs italic hover:underline cursor-pointer">
+                                Baca Selengkapnya →
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+    } catch (e) {
+        console.error("Error Berita:", e);
+        container.innerHTML = '<p class="text-center col-span-full text-red-500 italic text-sm">Gagal memuat berita. Coba refresh halaman.</p>';
     }
-  } catch (e) {
-    console.error("Berita Error:", e);
-  }
 }
-
 // 4. FUNGSI MODAL UNIVERSAL
 function showModal(title, image, content, type, category = "") {
   const modal = document.createElement("div");
